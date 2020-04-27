@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- bootstrap linked -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/user_page.css' %}">
+    <title>Travel Dashboard</title>
+</head>
+<body>
+
+    <ul class="nav justify-content-end">
+        <li class="nav-item">
+            <a class="nav-link" href="user_page/add">Add a Travel Plan</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/logout">Log Out</a>
+        </li>
+    </ul>
+
+<div class="jumbotron">
+
+<h1>Hello {{loggedinUser.name}}!</h1>
+<hr class="my-4">
+<p class="lead">Below you will find all the trips you've added to your Let's Go itinerary. Add and view personalized details about your trips. View planned vactions by other users and even add them to your own.</p>
+</div>
+
+<!-- Trip Schedule -->
+<h4>Your Trip Schedule</h4>
+    <div class="table_div">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Destination</th>
+                    <th scope="col">Travel Start Date</th>
+                    <th scope="col">Travel End Date</th>
+                    <th scope="col">Plan</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for trip in schedule %}
+                <tr>
+                    <td> <a href="/view/{{trip.id}}"> {{ trip.destination }}</a></td>
+                    <td>{{ trip.travel_start }}</td>
+                    <td>{{ trip.travel_end }}</td>
+                    <td>{{ trip.description }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+        
+    </div>
+
+</div>
+
+<!-- Other Users Trip Plans -->
+<h4>Other User's Travel Plans</h4>
+    <div class="table_div">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Destination</th>
+                    <th scope="col">Travel Start Date</th>
+                    <th scope="col">Travel End Date</th>
+                    <th scope="col">Do you want to Join?</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for trip in not_scheduled %}
+                <tr>
+                    <td>{{ trip.uploader.name }}</td>
+                    <td> <a href="/view/{{trip.id}}"> {{ trip.destination }}</a></td>
+                    <td>{{ trip.travel_start }}</td>
+                    <td>{{ trip.travel_end }}</td>
+                    {% if loggedinUser != trip.uploader %}
+                    <td><a href="/addDestination/{{trip.id}}">Join</a></td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+        <!-- adding a new show link -->
+        
+    </div>
+
+    <!-- JS Scripts for Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+.col{
+    display: inline-block;
+    width: 40%;
+    margin-top: 100px;
+    color: firebrick;
+
+}
+.wrapper {
+    height: 700px;
+}
+
+.bg-cover {
+    background-position: top;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* .form-control{
+    width: 30%;
+    text-align: center;
+    margin: auto, 0px;
+}
+
+.col-form-label{
+    padding-right: 0px;
+} */
